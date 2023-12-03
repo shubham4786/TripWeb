@@ -2,7 +2,6 @@ import React from "react";
 import Rating from "@mui/material/Rating";
 
 const Product = (props) => {
-  // console.log(props.item);
   const hotel = props.item;
   return (
     <div style={mainStyle}>
@@ -37,7 +36,6 @@ const Product = (props) => {
             readOnly
             value={parseInt(hotel.hotelStarInfo.star)}
           />
-          {/* <h5>star {hotel.hotelStarInfo.star}</h5> */}
           <h5 style={{ textAlign: "center" }}>
             {" "}
             {hotel.commentInfo.commenterNumber}

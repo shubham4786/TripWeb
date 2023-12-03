@@ -8,34 +8,34 @@ import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [startEnd, setStartEnd] = useState([0, 5]);
   const [filteredlist, setFilteredList] = useState(hotel);
+  const [sort, setSort] = useState("");
+
   const handleChange = (event, value) => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     setPage(value);
   };
-  // console.log(hotel);
+
   useEffect(() => {
     setStartEnd([(page - 1) * 5, page * 5]);
   }, [page]);
-
-  const [sort, setSort] = useState("");
 
   const handleSortBtn = (event) => {
     if (event.target.value === "ascending") {
       filteredlist.sort(
         (a, b) => a.hotelBasicInfo.price - b.hotelBasicInfo.price
       );
-      // console.log(event.target.value);
     } else if (event.target.value === "descending") {
       filteredlist.sort(
         (a, b) => b.hotelBasicInfo.price - a.hotelBasicInfo.price
       );
-      // console.log(event.target.value);
     }
     setSort(event.target.value);
   };
@@ -52,6 +52,7 @@ const Home = () => {
               filteredlist={filteredlist}
               setFilteredList={setFilteredList}
               setPage={setPage}
+              setSort={setSort}
             />
           </Box>
         </Grid>
@@ -59,17 +60,24 @@ const Home = () => {
           <Box>
             <Box sx={headerStyle}>
               <h3>{filteredlist.length} Hotels</h3>
-
-              <Select value={sort} defaultValue="Sort" onChange={handleSortBtn}>
-                {/* <MenuItem value="Sort">Sort</MenuItem> */}
-                <MenuItem value="ascending">Price- Low to High</MenuItem>
-                <MenuItem value="descending">Price- High to Low</MenuItem>
-              </Select>
+              <FormControl sx={{ width: "100px" }}>
+                <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Age"
+                  value={sort}
+                  onChange={handleSortBtn}
+                >
+                  <MenuItem value="ascending">Price- Low to High</MenuItem>
+                  <MenuItem value="descending">Price- High to Low</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
             {filteredlist.slice(startEnd[0], startEnd[1]).map((prod, index) => (
               <Product key={index} item={prod} />
             ))}
-            {/* <h3>Page: {page}</h3> */}
+
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               {filteredlist.length > 0 ? (
                 <Pagination
