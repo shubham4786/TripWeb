@@ -60,7 +60,7 @@ const Home = () => {
           <Box>
             <Box sx={headerStyle}>
               <h3>{filteredlist.length} Hotels</h3>
-              <FormControl sx={{ width: "100px" }}>
+              <FormControl sx={{ minWidth: "100px" }}>
                 <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
